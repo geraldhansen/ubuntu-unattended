@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # file names & paths
-tmp="/tmp"  # destination folder to store the final iso file
-hostname="ubuntu"
+tmp="/ntfsshares/MediaShare/ISOs"  # destination folder to store the final iso file
+hostname="ubuntu.alpha.omega"
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # define spinner function for slow tasks
@@ -66,7 +66,7 @@ while true; do
                 download_location="http://releases.ubuntu.com/12.04/"     # location of the file to be downloaded
                 new_iso_name="ubuntu-12.04.4-server-amd64-unattended.iso" # filename of the new iso file to be created
                 break;;
-        [2]* )  download_file="ubuntu-14.04.3-server-amd64.iso"             # filename of the iso to be downloaded
+				[2]* )  download_file="ubuntu-14.04.3-server-amd64.iso"             # filename of the iso to be downloaded
                 download_location="http://releases.ubuntu.com/14.04/"     # location of the file to be downloaded
                 new_iso_name="ubuntu-14.04.3-server-amd64-unattended.iso"   # filename of the new iso file to be created
                 break;;
@@ -89,7 +89,7 @@ fi
 
 # ask the user questions about his/her preferences
 read -ep " please enter your preferred timezone: " -i "${timezone}" timezone
-read -ep " please enter your preferred username: " -i "netson" username
+read -ep " please enter your preferred username: " -i "adam" username
 read -sp " please enter your preferred password: " password
 printf "\n"
 read -sp " confirm your preferred password: " password2
@@ -120,7 +120,7 @@ else
     # download netson seed file
     if [[ ! -f $tmp/$seed_file ]]; then
         echo -h " downloading $seed_file: "
-        download "https://github.com/geraldhansen/ubuntu-unattended/raw/master/$seed_file"
+        download "https://raw.githubusercontent.com/swoopsta/ubuntu-unattended/master/$seed_file"
     fi
 fi
 
@@ -129,7 +129,7 @@ if [ ${username} = "root" ]; then
     if [ -e ${dir}/root_account.seed ]; then 
         cat ${dir}/root_account.seed >> $seed_file
     else
-        download "https://github.com/geraldhansen/ubuntu-unattended/raw/master/root_account.seed"
+        download "https://raw.githubusercontent.com/swoopsta/ubuntu-unattended/master/root_account.seed"
         cat root_account.seed >> $seed_file
     fi
 else
@@ -137,7 +137,7 @@ else
     if [ -e ${dir}/user_account.seed ]; then 
         cat ${dir}/user_account.seed >> $seed_file
     else
-        download "https://github.com/geraldhansen/ubuntu-unattended/raw/master/user_account.seed"
+        download "https://raw.githubusercontent.com/swoopsta/ubuntu-unattended/master/user_account.seed"
         cat user_account.seed >> $seed_file
     fi 
 fi
